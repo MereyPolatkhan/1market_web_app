@@ -1,0 +1,70 @@
+<app-header></app-header>
+<!--<app-categories-nav></app-categories-nav>-->
+<div class="item-cart">
+  <span class="category-of-item">
+    <div>1Market Магазин <img src="../../../assets/media/icons/right-arrow2.svg" alt=""> </div>
+    <div>Телефоны и гаджеты <img src="../../../assets/media/icons/right-arrow2.svg" alt=""> </div>
+    <div>Iphone  </div>
+  </span>
+
+  <div class="item-info">
+    <div class="item-image">
+      <div class="item-main-image">
+        <img [(ngModel)]="mainImage" [src]="mainImage" alt="">
+      </div>
+      <div class="item-other-images">
+        <div *ngFor="let im of images">
+          <img (click)="changeMainImage($event)" src="http://localhost:8000{{im.image}}" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="item-cart-info">
+      <h2>{{item.name}}</h2>
+      <ngb-rating [max]="5" [(rate)]="item.rating" [readonly]="false" id="155"></ngb-rating>
+      <div class="price">
+        <p>Цена</p>
+        <span>{{item.price}} т</span>
+      </div>
+      <div class="item-description">
+        <p [innerHTML]="item.description"></p>
+      </div>
+      <button class="evaluate" (click)="evaluate = !evaluate" *ngIf="!evaluate">Оценить</button>
+      <div class="putMark" *ngIf="evaluate">
+        <ngb-rating [max]="5" [(rate)]="zero" [readonly]="false" id="454" #rating></ngb-rating>
+        <button class="evaluate" (click)="putMark(+item.id, 3)">Оценить</button>
+        <button class="evaluate" (click)="evaluate = !evaluate">Отмена</button>
+      </div>
+
+
+      <div class="forSeller" *ngIf="isSeller">
+        У вас есть этот товар?
+        <input type="number" placeholder="Укажите количество" #InputQuantity>
+        <input type="number" placeholder="Введите цену для вашего товара" #InputPrice>
+        <button type="submit" (click)="addProductToWareHouse(item.id,  shop_id, +InputPrice.value,  +InputQuantity.value )">Добавить в каталог</button>
+      </div>
+    </div>
+  </div>
+  <div class="sellers-in-item-cart" *ngIf="isCustomer">
+    <span>Продавцы</span>
+    <div>
+      <div class="seller" *ngFor="let wh of wareHouseItems">
+
+        <div>
+          Доставка 4дня, бесплатно <br>
+          Самовывоз: сегодня
+        </div>
+        <div>
+          В наличии <br>
+          {{wh.quantity}} штук
+        </div>
+        <span>{{wh.price}}т</span>
+        <div *ngIf="isCustomer" class="quant">
+          <form><input type="number" min="1" value="1" #quantityInput >шт</form>
+          <button class="btn btn-primary" (click)="addWareHouseItemToCart(user_id, 0, wh.id, +quantityInput.value)">Добавить в корзину</button>
+        </div>
+
+        <p *ngIf="!isCustomer">Вы не вошли в аккаунт? <a href="/login">Войти!</a></p>
+      </div>
+    </div>
+  </div>
+</div>

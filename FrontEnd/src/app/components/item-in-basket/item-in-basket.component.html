@@ -1,0 +1,24 @@
+<div class="item-in-basket">
+  <h2>{{item.name}}</h2>
+<!--  <p>{{item.id}}</p>-->
+  <span>
+<!--    <img src="assets/media/images/Products/Iphone14ProMax256GbPink.jpg" alt="">-->
+  </span>
+
+<!--  <img src="{{item.id}}">-->
+  <div>
+    <span>
+      <h2>Цена:</h2>
+      <p>{{item.priceInThisShop}}тг</p>
+    </span>
+    <span>
+      <h2>Магазин:</h2>
+     <p>{{item.shop_name}}</p>
+    </span>
+    <span>
+      <h2>Количество:</h2>
+      <p>{{item.quantity}}</p>
+    </span>
+  </div>
+  <button type="submit" (click)="deleteItemFromCart(item.order_item_id)">x</button>
+</div>
